@@ -11,11 +11,25 @@
 {% endblock %}
 
 {% block body %}
-<div class="row justify-content-center">
-  <div class="col-10">
-      <h1 class="h1 text-center">CNN Visualization</h1>
+<div class="row">
+  <div class="col-md-5">
+      <div id="sketchpadapp">
+        <div class="rightside">
+            <canvas id="sketchpad" height="300" width="400">
+            </canvas>
+        </div>
+        <button id="clear">Clear Canvas</button>
+        <button id="save">Get Canvas</button>
+
+      </div>
+      <input id="myField" value="" />
   </div>
-</div>
+  <div class="col-md-7">
+        <div class="row justify-content-center">
+          <div class="col-10">
+              <h1 class="h1 text-center">CNN Visualization</h1>
+          </div>
+        </div>
 
 <div class="row justify-content-center">
   <div class="col-10">
@@ -28,6 +42,11 @@
     <canvas id="myCanvas" style="border:1px solid black;">
   </div>
 </div>
+  </div>
+</div>
+
+
+
 <div class="hidden" id="alpha_value">{{ content }}</div>
 <div class="hidden" id="size">{{ size }}</div>
 {% endblock %}
