@@ -1,13 +1,15 @@
 from django.shortcuts import render
 
-from visualization_core import sample
+from visualization_core.visualization_controller import VisualizationController
 
 def index(request):
     context = {}
 
-    size, input_data = sample.input_sample_2d()
+    controller = VisualizationController()
 
-    context["size"] = size
-    context["content"] = input_data
+    information = controller.visualize("model file location", "input file location")
+
+    context["data"] = information["data"]
+    context["dotstring"] = information["dotstring"]
 
     return render(request, 'visualization/index.html', context)

@@ -11,17 +11,20 @@
 
 {% block body %}
 <div class="row justify-content-center">
-  <div class="col-10">
+  <div class="col-12">
       <h1 class="h1 text-center">CNN Visualization</h1>
   </div>
 </div>
 
 <div class="row justify-content-center">
-  <div class="col-10">
-    <p class="blue">size : {{ size.0 }} , {{ size.1 }}</p>
-    <p>content : {{ content }}</p>
+  <div class="col-12" id="network">
   </div>
 </div>
+
+{% for key, value in data.items %}
+<input type="text" class="hidden" value="{{ value }}" id="{{ key }}">
+{% endfor %}
+<input type="text" class="hidden" value="{{ dotstring }}" id="dotstring">
 {% endblock %}
 
 {% block script %}
