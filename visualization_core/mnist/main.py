@@ -6,12 +6,19 @@ import numpy as np
 import tensorflow as tf
 import matplotlib.pyplot as plt
 
-from mnist_cnn_model import cnn_model_fn
+from model import cnn_model_fn
+import sample
 
 def main(unused_argv):
 
+  size, sample_2d = sample.input_sample_2d()
+
+  plt.imshow(sample_2d)
+  plt.show()
+
+  '''
   mnist_classifier = tf.estimator.Estimator(
-      model_fn=cnn_model_fn, model_dir="mnist_model")
+      model_fn=cnn_model_fn, model_dir="saved")
 
   latest_checkpoint = mnist_classifier.latest_checkpoint()
 
@@ -52,7 +59,7 @@ def main(unused_argv):
       plt.imshow(i, cmap="gray")
       current += 1
   plt.show()
-  
+  '''
 
 if __name__ == "__main__":
   tf.app.run()

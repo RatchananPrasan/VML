@@ -2,6 +2,7 @@
     visibility: hidden;
 }
 
+
 .blue {
     color: blue;
 }
@@ -39,5 +40,12 @@
     -webkit-appearance: none;
     background: #eee;
     border: 1px solid #888;
+}
+
+
+#network {
+    height: 100%;
+    width: 100%;
+    border: 1px solid lightgray;
 }
 
