@@ -7,7 +7,7 @@ def input_sample_1d():
     for data in sample:
         sample_1d.append(float(data))
 
-    return (28,28) , sample_1d
+    return [28,28] , sample_1d
 
 def input_sample_2d():
 
@@ -19,7 +19,7 @@ def input_sample_2d():
             sample_2d.append(list())
         sample_2d[-1].append(float(data))
 
-    return (28,28) , sample_2d
+    return [28,28] , sample_2d
 
 def get_sample():
 
