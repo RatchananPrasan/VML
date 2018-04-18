@@ -46,7 +46,7 @@ $(document).ready(function() {
     }
   };
 
-  // stroke_color can be of rgba(r,g,b,a) or null
+  // stroke_color can be rgba(r,g,b,a) or null
   var drawCanvas = function(canvas_id, width, height, rgba_vals, stroke_color) {
     var c = document.getElementById(canvas_id);
     var ctx = c.getContext("2d");
@@ -147,65 +147,6 @@ $(document).ready(function() {
   network.on("deselectNode", function(params) {
     setEdgeOpacity(network, params.previousSelection.edges, 0);
   });
-
-  /*
-  var ratio = 20;
-  var filter_size_width = 5;
-  var filter_size_height = 5;
-
-  var sample_filter = [ 	
-                        0,0,0,0,
-                        0,0,0,1,
-                        0,0,0,1,
-                        0,0,0,1,
-                        0,0,0,0,
-                        0,0,0,0,
-                        0,0,0,1,
-                        0,0,0,0,
-                        0,0,0,1,
-                        0,0,0,0,
-                        0,0,0,0,
-                        0,0,0,1,
-                        0,0,0,1,
-                        0,0,0,1,
-                        0,0,0,0,
-                        0,0,0,0,
-                        0,0,0,0,
-                        0,0,0,0,
-                        0,0,0,1,
-                        0,0,0,0,
-                        0,0,0,0,
-                        0,0,0,1,
-                        0,0,0,1,
-                        0,0,0,1,
-                        0,0,0,0,
-                      ];
-                    
-  var c = document.getElementById("output");
-  var ctx = c.getContext("2d");
-  ctx.strokeStyle = "rgb(220,220,220)";
-
-  var x = 0;
-  var y = 0;
-
-  var sample_filter_counter = 0;
-
-  for(var row = 0; row < filter_size_width; row++) {
-    for(var col = 0; col < filter_size_height; col++) {
-      var r = sample_filter[sample_filter_counter++];
-      var g = sample_filter[sample_filter_counter++];
-      var b = sample_filter[sample_filter_counter++];
-      var a = sample_filter[sample_filter_counter++];
-      ctx.fillStyle = "rgba("+r+","+g+","+b+","+a+")";
-      ctx.fillRect(x, y, ratio, ratio);
-      ctx.strokeRect(x, y, ratio, ratio);
-      x += ratio;
-      }
-    x = 0;
-    y += ratio;
-    
-  }
-  */
 
   /*
   var alpha = document.getElementById("alpha_value").innerHTML;
