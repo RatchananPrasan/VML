@@ -49,3 +49,20 @@
     border: 1px solid lightgray;
 }
 
+.bg-light {
+    background-color: #2B3A40!important;
+
+}
+
+.navbar-brand{
+	color: #ededed !important;
+}
+
+.upper{
+    margin-top: 32px;
+}
+
+.text-header{
+    font-size: 40px;
+    margin-bottom: 32px;
+}
