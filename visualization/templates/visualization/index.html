@@ -25,15 +25,18 @@
 <input type="text" class="hidden" value="{{ value }}" id="{{ key }}">
 {% endfor %}
 <input type="text" class="hidden" value="{{ dotstring }}" id="dotstring">
-<!--
+
   <div class="row justify-content-center">
-  <div class="col-10-md">
+  <div class="col-10-md" >
     <canvas id="myCanvas" style="border:1px solid black;">
+  </div>
+  <div class="col-10-md">
+    <canvas id="myCanvas2" style="border:1px solid black;">
   </div>
 </div>
 <div class="hidden" id="alpha_value">{{ content }}</div>
 <div class="hidden" id="size">{{ size }}</div>
--->
+
 {% endblock %}
 
 {% block script %}
