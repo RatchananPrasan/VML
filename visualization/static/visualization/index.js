@@ -90,7 +90,7 @@ $(document).ready(function() {
   }
   
   ctx.putImageData(imgData, 0, 0);
-  var ratio = 5;
+  var ratio = 0.5;
   var c2 = document.getElementById("myCanvas2");
   var ctx2 = c2.getContext("2d");
  
