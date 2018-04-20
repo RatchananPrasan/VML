@@ -6,7 +6,6 @@
 {% block head %}
 <script type="text/javascript" src="{% static 'external/vis/vis.min.js' %}"></script>
 <link  rel="stylesheet" type="text/css" href="{% static 'external/vis/vis.min.css' %}"/>
-
 <link  rel="stylesheet" type="text/css" href="{% static 'visualization/index.css' %}"/>
 {% endblock %}
 
@@ -21,19 +20,6 @@
   <div class="col-12" id="network">
   </div>
 </div>
-{% for key, value in data.items %}
-<input type="text" class="hidden" value="{{ value }}" id="{{ key }}">
-{% endfor %}
-<input type="text" class="hidden" value="{{ dotstring }}" id="dotstring">
-<!--
-  <div class="row justify-content-center">
-  <div class="col-10-md">
-    <canvas id="myCanvas" style="border:1px solid black;">
-  </div>
-</div>
-<div class="hidden" id="alpha_value">{{ content }}</div>
-<div class="hidden" id="size">{{ size }}</div>
--->
 
 <div class="row justify-content-center">
   <div class="col-12" id="output">
@@ -42,5 +28,9 @@
 {% endblock %}
 
 {% block script %}
+<script type="text/javascript">
+  var dotstring = `{{ dotstring | safe}}`;
+  var node_data = {{ data | safe }};
+</script>
 <script type="text/javascript" src="{% static 'visualization/index.js' %}"></script>
 {% endblock %}

@@ -18,6 +18,10 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 
+import tensorflow as tf
+
+tf.enable_eager_execution()
+
 urlpatterns = [
     path('visualization', include('visualization.urls')),
     path('admin/', admin.site.urls),
