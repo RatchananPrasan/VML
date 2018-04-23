@@ -1,7 +1,4 @@
 $(document).ready(function() {
-  
-
-    
 
 
   var dotstring = $("#dotstring").val();
@@ -102,6 +99,33 @@ $(document).ready(function() {
 
   ctx2.putImageData(imgData, 0, 0);
   */
+  function getCookie(name) {
+    var cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        var cookies = document.cookie.split(';');
+        for (var i = 0; i < cookies.length; i++) {
+            var cookie = jQuery.trim(cookies[i]);
+            // Does this cookie string begin with the name we want?
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue =   decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+    }
+    var csrftoken = getCookie('csrftoken');
+    function csrfSafeMethod(method) {
+        // these HTTP methods do not require CSRF protection
+        return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+    }
+    $.ajaxSetup({
+        beforeSend: function(xhr, settings) {
+            if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+                xhr.setRequestHeader("X-CSRFToken", csrftoken);
+            }
+        }
+    });
 
   var canvas,ctx;
   var canvas = document.getElementById('sketchpad');
@@ -133,18 +157,14 @@ $(document).ready(function() {
 
           document.getElementById("out").value = dataURL;
           $.ajax({
-            type: "POST",
-            url: "script.php",
+            type: 'POST',
+            url: 'savepic',
             data: { 
                imgBase64: dataURL
-            }
-          }).done(function(o) {
-            console.log('saved'); 
-            // If you want the file to be visible in the browser 
-            // - please modify the callback in javascript. All you
-            // need is to return the url to the file, you just saved 
-            // and than put the image in your browser.
+            },
+
           });
+          
 
         };
     $('#save').on("click",save);
