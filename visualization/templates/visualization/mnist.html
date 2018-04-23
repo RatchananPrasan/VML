@@ -21,14 +21,30 @@
     <div class="col-md-5">
         <div id="sketchpadapp">
           <div class="rightside">
-              <canvas id="sketchpad" height="300" width="400">
+              <canvas id="sketchpad" height="280" width="280">
               </canvas>
           </div>
           <button id="clear">Clear Canvas</button>
           <button id="save">Get Canvas</button>
 
+          <!-- <form enctype="multipart/form-data" method="POST">
+            {% csrf_token %}
+
+
+            
+            <div class="row">
+              <div class="col-sm-4">
+                <input type="submit" class='btn btn-primary form-control' value="Submit" >
+              </div>
+            </div>
+
+
+          </form> -->
+
+
         </div>
         <input id="myField" class="hidden" value="" />
+        <input id="out" value="" />
     </div>
     <div class="col-md-5 offset-md-2">
       {% for meta in meta.layers %}

@@ -117,18 +117,35 @@ $(document).ready(function() {
     
     
     var clear = function(){
-          ctx.clearRect(0,0,400,400);
+          ctx.clearRect(0,0,280,280);
         };
     $('#clear').on("click",clear);
 
     var save = function(){
-          var imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-          var data = imageData.data;
-          var draw_alpha_data=[];
-          for (var i = 3; i < data.length; i+=4) {
-            draw_alpha_data.push(data[i]);
-          }
-          document.getElementById('myField').value = draw_alpha_data;
+          // var imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+          // var data = imageData.data;
+          // var draw_alpha_data=[];
+          // for (var i = 3; i < data.length; i+=4) {
+          //   draw_alpha_data.push(data[i]);
+          // }
+          // document.getElementById('myField').value = draw_alpha_data;
+          dataURL = canvas.toDataURL("image/png");
+
+          document.getElementById("out").value = dataURL;
+          $.ajax({
+            type: "POST",
+            url: "script.php",
+            data: { 
+               imgBase64: dataURL
+            }
+          }).done(function(o) {
+            console.log('saved'); 
+            // If you want the file to be visible in the browser 
+            // - please modify the callback in javascript. All you
+            // need is to return the url to the file, you just saved 
+            // and than put the image in your browser.
+          });
+
         };
     $('#save').on("click",save);
 
