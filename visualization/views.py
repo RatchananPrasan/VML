@@ -8,9 +8,10 @@ def index(request):
 
     controller = VisualizationController()
 
-    information = controller.visualize("model file location", "input file location")
+    information = controller.visualize_mnist()
 
     context["data"] = json.dumps(information["data"])
     context["dotstring"] = information["dotstring"]
+    context["meta"] = information["meta"]
 
     return render(request, 'visualization/index.html', context)

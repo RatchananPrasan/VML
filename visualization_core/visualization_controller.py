@@ -1,5 +1,19 @@
+from .visualizer_mnist import MnistVisualizer
+from .vis_graph import VisGraph
 
 class VisualizationController():
+
+
+    def visualize_mnist(self):
+        mnist = MnistVisualizer("", VisGraph())
+
+        result = {}
+
+        result["data"] = mnist.get_data()
+        result["dotstring"] = mnist.get_dotstring()
+        result["meta"] = mnist.get_meta()
+
+        return result
 
     def visualize(self, model_file_path, input_file_path):
         result = {}

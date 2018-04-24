@@ -30,7 +30,8 @@ $(document).ready(function() {
   options.layout = {
     hierarchical : {
       enabled : true,
-      direction : "LR"
+      direction : "LR",
+      levelSeparation : 750
     }
   };
   
@@ -105,24 +106,26 @@ $(document).ready(function() {
       var html_val = `
                       <p>
                         Type : ` + json_data["type"] + `<br>
-                        Operation : ` + json_data["operation"] + `<br>
                         Activation : ` + json_data["activation"] + `<br>
                       </p>
                       `;
       output_div.append(`<div class="row"><div class="col-12">`+ html_val +`</div></div>`);
       
       for(var i = 0; i < json_data["filters"].length; i++) {
-        var temp_id = "temp_id" + i;
+        var temp_id = "temp_id_" + i;
         output_div.append(`<div class="row justify-content-center" id="`+ temp_id +`"></div>`);
         var canvas_div_output = $("#"+temp_id);
 
         // Draw Input
         var input_canvas_id = "input_" + temp_id;
         canvas_div_output.append(`<div class="col-3"><h3>Input</h3><canvas id="`+ input_canvas_id +`"></canvas></div>`);
+        var input_node_id = json_data["inputs"][i];
+        var input_node_data = node_data[input_node_id];
+
         drawCanvas(input_canvas_id, 
-          json_data["input_size"]["width"],
-          json_data["input_size"]["height"],
-          json_data["inputs"][i],
+          input_node_data["output_size"]["width"],
+          input_node_data["output_size"]["height"],
+          input_node_data["outputs"][i],
           null);
 
         // Draw Filter
@@ -143,6 +146,24 @@ $(document).ready(function() {
           json_data["outputs"][i],
           null);
       }
+    } else if (json_data["type"] == "input") {
+      var html_val = `
+                      <p>
+                        Type : ` + json_data["type"] + `<br>
+                        Size : ` + json_data["output_size"]["width"] + "x" + json_data["output_size"]["height"] + `<br>
+                      </p>
+                      `;
+      var temp_id = "temp_id_" + 0;
+      output_div.append(`<div class="row justify-content-center" id="`+ temp_id +`"></div>`);
+      var canvas_div_output = $("#"+temp_id);
+
+      var input_canvas_id = "input_" + temp_id;
+        canvas_div_output.append(`<div class="col-8"><h3>Output</h3><canvas id="`+ input_canvas_id +`"></canvas></div>`);
+        drawCanvas(input_canvas_id, 
+          json_data["output_size"]["width"],
+          json_data["output_size"]["height"],
+          json_data["outputs"][0],
+          null);
     }
   });
 
