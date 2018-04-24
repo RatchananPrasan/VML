@@ -6,7 +6,6 @@
 {% block head %}
 <script type="text/javascript" src="{% static 'external/vis/vis.min.js' %}"></script>
 <link  rel="stylesheet" type="text/css" href="{% static 'external/vis/vis.min.css' %}"/>
-
 <link  rel="stylesheet" type="text/css" href="{% static 'visualization/index.css' %}"/>
 {% endblock %}
 
@@ -26,15 +25,14 @@
           </div>
           <button id="clear">Clear Canvas</button>
           <button id="save">Get Canvas</button>
-
         </div>
         <input id="myField" class="hidden" value="" />
-        <input id="out" value="" />
+        <input id="out" value="" class="hidden"/>
     </div>
     <div class="col-md-5 offset-md-2">
       {% for meta in meta.layers %}
         <div>
-        {{meta}}
+        <b>{{meta}}</b>
         </div>
       {% endfor %}
     </div>
@@ -44,44 +42,36 @@
   <div class="col-12" id="network">
   </div>
 </div>
+<h3>Expected output: {{meta.output}}</h3>
 <p id="selection"></p>
-  Expected output: {{meta.output}}
   {% for key, value in meta.probabilities.items %}
       <div class="row">
-        <div class="col-md-1">
+        <div class="col-md-2">
           Class: {{key}}
         </div>
         <div class="col-md-4">
           <div class="progress">
             <div class="progress-bar progress-bar-striped" role="progressbar" style="width: {{value}}%;">
-              {{value}}%
+              {{ value | floatformat:0 }}%
             </div>
           </div>
         </div>
+        <div class="col-md-4">
+          <p>{{ value | floatformat:2 }} %</p>
+        </div>
       </div>
   {% endfor %}
-{% for key, value in data.items %}
-<input type="text" class="hidden" value="{{ value }}" id="{{ key }}">
-{% endfor %}
-<input type="text" class="hidden" value="{{ dotstring }}" id="dotstring">
 
-
-<!--
-  <div class="row justify-content-center">
-  <div class="col-10-md">
-    <canvas id="myCanvas" style="border:1px solid black;">
-  </div>
-</div>
+<div class="row justify-content-center">
+  <div class="col-12" id="output">
   </div>
 </div>
 
-
-
-<div class="hidden" id="alpha_value">{{ content }}</div>
-<div class="hidden" id="size">{{ size }}</div>
--->
 {% endblock %}
 
 {% block script %}
-<script type="text/javascript" src="{% static 'visualization/index.js' %}"></script>
-{% endblock %}
+<script type="text/javascript">
+  var dotstring = `{{ dotstring | safe}}`;
+  var node_data = {{ data | safe }};
+</script>
+<script type="text/javascript" src="{% static 'visualization/index.js' %}"></script>{% endblock %}

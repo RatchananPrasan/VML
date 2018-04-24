@@ -2,10 +2,6 @@
     visibility: hidden;
 }
 
-
-.blue {
-    color: blue;
-}
 #sketchpadapp {
     /* Prevent nearby text being highlighted when accidentally dragging mouse outside confines of the canvas */
     -webkit-touch-callout: none;
@@ -46,6 +42,9 @@
 #network {
     height: 100%;
     width: 100%;
+}
+
+canvas {
     border: 1px solid lightgray;
 }
 

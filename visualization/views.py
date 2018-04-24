@@ -1,25 +1,20 @@
 from django.shortcuts import render
-
 from django.http import HttpResponse
-from visualization_core.visualization_controller import VisualizationController
 from django.core.files.base import ContentFile
-import base64
-import six
-import uuid
 from django.conf import settings
 from django.core.files.storage import FileSystemStorage
 
+import json
+import base64
+import six
+import uuid
+
+from visualization_core.vis_graph import VisGraph
+from visualization_core.visualization_controller import VisualizationController
+
+
 def index(request):
-    context = {}
-
-    controller = VisualizationController()
-
-    information = controller.visualize("model file location", "input file location")
-
-    context["data"] = information["data"]
-    context["dotstring"] = information["dotstring"]
-    context["meta"] = information["meta"]
-    return render(request, 'visualization/index.html', context)
+    return render(request, 'visualization/index.html')
 
 
 def mnist(request):
@@ -27,12 +22,14 @@ def mnist(request):
 
     controller = VisualizationController()
 
-    information = controller.visualize("model file location", "input file location")
+    information = controller.visualize_mnist()
 
     context["data"] = information["data"]
     context["dotstring"] = information["dotstring"]
     context["meta"] = information["meta"]
+
     return render(request, 'visualization/mnist.html', context)
+
 
 def get_bas64(request):
     context = {}
