@@ -23,13 +23,15 @@
               <canvas id="sketchpad" height="280" width="280">
               </canvas>
           </div>
-          <button id="clear">Clear Canvas</button>
-          <button id="save">Get Canvas</button>
+          <button id="save"class="btn btn-primary">Predict</button>
+          <p></p>
+          <button id="clear" class="btn btn-warning">Clear Canvas</button>
         </div>
         <input id="myField" class="hidden" value="" />
         <input id="out" value="" class="hidden"/>
     </div>
     <div class="col-md-5 offset-md-2">
+      <h3>Layers Information :</h4>
       {% for meta in meta.layers %}
         <div>
         <b>{{meta}}</b>
