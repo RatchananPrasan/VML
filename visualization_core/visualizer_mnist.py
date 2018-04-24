@@ -172,7 +172,7 @@ class MnistVisualizer():
                 self.meta["output"] = detected_class_out[0]
                 probs = {}
                 for index, num in enumerate(probabilities_out[0]):
-                    probs[index] = num
+                    probs[index] = float(num * 100)
                 self.meta["probabilities"] = probs
                 
 

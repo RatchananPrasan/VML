@@ -18,10 +18,26 @@ class VisualizationController():
     def visualize(self, model_file_path, input_file_path):
         result = {}
 
+        result["meta"] = self._get_meta()
         result["data"] = self._get_data()
         result["dotstring"] = self._get_dotstring()
         
         return result
+
+
+    def _get_meta(self):
+        return {
+            "layers" : [
+                        "Convolution Layer : 32 5 x 5 filters",
+                        "Pooling Layer : Max Pooling",
+                    ],
+            "probabilities" : {
+                "0" : 95,
+                "1" : 5,
+            },
+            "output" : "0"
+        }
+        
 
     # returns dictionary with key being id of node or edges and value is its string JSON
     def _get_data(self):

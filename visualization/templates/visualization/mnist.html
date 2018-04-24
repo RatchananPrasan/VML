@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %} Visualization {% endblock %}
+
+{% block head %}
+<script type="text/javascript" src="{% static 'external/vis/vis.min.js' %}"></script>
+<link  rel="stylesheet" type="text/css" href="{% static 'external/vis/vis.min.css' %}"/>
+<link  rel="stylesheet" type="text/css" href="{% static 'visualization/index.css' %}"/>
+{% endblock %}
+
+{% block body %}
+<section class="upper">
+  <div class="row">
+    <div class="col-md-12 text-center text-header">
+      MNIST Data
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-5">
+        <div id="sketchpadapp">
+          <div class="rightside">
+              <canvas id="sketchpad" height="280" width="280">
+              </canvas>
+          </div>
+          <button id="clear">Clear Canvas</button>
+          <button id="save">Get Canvas</button>
+        </div>
+        <input id="myField" class="hidden" value="" />
+        <input id="out" value="" class="hidden"/>
+    </div>
+    <div class="col-md-5 offset-md-2">
+      {% for meta in meta.layers %}
+        <div>
+        <b>{{meta}}</b>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+<div class="row justify-content-center">
+  <div class="col-12" id="network">
+  </div>
+</div>
+<h3>Expected output: {{meta.output}}</h3>
+<p id="selection"></p>
+  {% for key, value in meta.probabilities.items %}
+      <div class="row">
+        <div class="col-md-2">
+          Class: {{key}}
+        </div>
+        <div class="col-md-4">
+          <div class="progress">
+            <div class="progress-bar progress-bar-striped" role="progressbar" style="width: {{value}}%;">
+              {{ value | floatformat:0 }}%
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <p>{{ value | floatformat:2 }} %</p>
+        </div>
+      </div>
+  {% endfor %}
+
+<div class="row justify-content-center">
+  <div class="col-12" id="output">
+  </div>
+</div>
+
+{% endblock %}
+
+{% block script %}
+<script type="text/javascript">
+  var dotstring = `{{ dotstring | safe}}`;
+  var node_data = {{ data | safe }};
+</script>
+<script type="text/javascript" src="{% static 'visualization/index.js' %}"></script>{% endblock %}

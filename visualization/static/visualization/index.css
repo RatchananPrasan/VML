@@ -2,6 +2,43 @@
     visibility: hidden;
 }
 
+#sketchpadapp {
+    /* Prevent nearby text being highlighted when accidentally dragging mouse outside confines of the canvas */
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+.leftside {
+    float:left;
+
+    background-color:#def;
+    padding:10px;
+    border-radius:4px;
+}
+.rightside {
+    float:left;
+    margin-left:10px;
+}
+#sketchpad {
+    float:left;
+    height:280px;
+    width:280px;
+    border:2px solid #888;
+    border-radius:4px;
+    position:relative; /* Necessary for correct mouse co-ords in Firefox */
+}
+#clearbutton {
+    font-size: 15px;
+    padding: 10px;
+    -webkit-appearance: none;
+    background: #eee;
+    border: 1px solid #888;
+}
+
+
 #network {
     height: 100%;
     width: 100%;
@@ -9,4 +46,22 @@
 
 canvas {
     border: 1px solid lightgray;
+}
+
+.bg-light {
+    background-color: #2B3A40!important;
+
+}
+
+.navbar-brand{
+	color: #ededed !important;
+}
+
+.upper{
+    margin-top: 32px;
+}
+
+.text-header{
+    font-size: 40px;
+    margin-bottom: 32px;
 }
