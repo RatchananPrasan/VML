@@ -11,29 +11,11 @@
 {% endblock %}
 
 {% block body %}
-<div class="row justify-content-center">
-  <div class="col-12">
-      <h1 class="h1 text-center">CNN Visualization</h1>
-  </div>
+<div class="text-center" >
+  <h1>Coming Soon</h1>
 </div>
 
-<div class="row justify-content-center">
-  <div class="col-12" id="network">
-  </div>
-</div>
-{% for key, value in data.items %}
-<input type="text" class="hidden" value="{{ value }}" id="{{ key }}">
-{% endfor %}
-<input type="text" class="hidden" value="{{ dotstring }}" id="dotstring">
-<!--
-  <div class="row justify-content-center">
-  <div class="col-10-md">
-    <canvas id="myCanvas" style="border:1px solid black;">
-  </div>
-</div>
-<div class="hidden" id="alpha_value">{{ content }}</div>
-<div class="hidden" id="size">{{ size }}</div>
--->
+
 {% endblock %}
 
 {% block script %}
