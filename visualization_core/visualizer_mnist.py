@@ -2,8 +2,8 @@ import tensorflow as tf
 import numpy as np
 import matplotlib.pyplot as plt
 
-from .helper import get_mnist_filename
-from .vis_graph import VisGraph
+from helper import get_mnist_filename
+from vis_graph import VisGraph
 
 class MnistVisualizer():
 
@@ -155,6 +155,13 @@ class MnistVisualizer():
                 self.graph_generator.draw_convolution(conv_1_out, (28, 28), 
                     self.conv_1_kernel, (5, 5), "Relu")
 
+                pool_1_out = sess.run(pool_1)
+                self.graph_generator.draw_pooling(pool_1_out, (14, 14))
+
+                conv_2_out = sess.run(conv_2)
+                self.graph_generator.draw_convolution(conv_2_out, (14, 14),
+                    self.conv_2_kernel, (5,5), "Relu")
+
                 self.graph_generator.end_dotstring()
 
                 detected_class_out = sess.run(detected_class)
@@ -166,38 +173,6 @@ class MnistVisualizer():
                     probs[index] = num
                 self.meta["probabilities"] = probs
                 
-def holder():
-    layers = [
-                ["input", 1], # 0 - 1
-                ["conv", 32], # 1 - 33
-                ["pool", 32], # 33 - 65
-                ["conv", 64], # 65 - 129
-                ["pool", 64], # 129 - 193
-                ["full", 10], # 193 - 203
-             ]
-    start = 0
-    for i in layers:
-        end = start + i[1]
-        i.append((start, end))
-        start = end
-        
-    dot_string = "dinetwork {"
-    for i in range(len(layers)):
-        if layers[i][0] == "input":
-            continue
-        elif layers[i][0] == "conv":
-            for j in range(layers[i][2][0], layers[i][2][1]):
-                for k in range(layers[i - 1][2][0], layers[i - 1][2][1]):
-                    dot_string += str(k) + " -> " + str(j) + ";"
-        elif layers[i][0] == "pool":
-            for j, k in zip(range(layers[i][2][0], layers[i][2][1]), range(layers[i - 1][2][0], layers[i - 1][2][1])):
-                dot_string += str(k) + " -> " + str(j) + ";"
-        elif layers[i][0] == "full":
-            for j in range(layers[i][2][0], layers[i][2][1]):
-                for k in range(layers[i - 1][2][0], layers[i - 1][2][1]):
-                    dot_string += str(k) + " -> " + str(j) + ";"
-    dot_string += "}"
-
 
 if __name__ == "__main__":
 

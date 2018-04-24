@@ -153,17 +153,52 @@ $(document).ready(function() {
                         Size : ` + json_data["output_size"]["width"] + "x" + json_data["output_size"]["height"] + `<br>
                       </p>
                       `;
+      output_div.append(`<div class="row"><div class="col-12">`+ html_val +`</div></div>`);
+
       var temp_id = "temp_id_" + 0;
       output_div.append(`<div class="row justify-content-center" id="`+ temp_id +`"></div>`);
       var canvas_div_output = $("#"+temp_id);
 
       var input_canvas_id = "input_" + temp_id;
-        canvas_div_output.append(`<div class="col-8"><h3>Output</h3><canvas id="`+ input_canvas_id +`"></canvas></div>`);
-        drawCanvas(input_canvas_id, 
-          json_data["output_size"]["width"],
-          json_data["output_size"]["height"],
-          json_data["outputs"][0],
-          null);
+      canvas_div_output.append(`<div class="col-8"><h3>Output</h3><canvas id="`+ input_canvas_id +`"></canvas></div>`);
+      drawCanvas(input_canvas_id, 
+        json_data["output_size"]["width"],
+        json_data["output_size"]["height"],
+        json_data["outputs"][0],
+        null);
+    } else if (json_data["type"] == "pooling") {
+      var html_val = `
+                      <p>
+                        Type : ` + json_data["type"] + `<br>
+                        Size : ` + json_data["output_size"]["width"] + "x" + json_data["output_size"]["height"] + `<br>
+                      </p>
+                      `;
+      output_div.append(`<div class="row"><div class="col-12">`+ html_val +`</div></div>`);
+
+      var temp_id = "temp_id_" + 0;
+      output_div.append(`<div class="row justify-content-center" id="`+ temp_id +`"></div>`);
+      var canvas_div_output = $("#"+temp_id);
+
+      // Draw Input
+      var input_canvas_id = "input_" + temp_id;
+      canvas_div_output.append(`<div class="col-3"><h3>Input</h3><canvas id="`+ input_canvas_id +`"></canvas></div>`);
+      var input_node_id = json_data["inputs"][0];
+      var input_node_data = node_data[input_node_id];
+
+      drawCanvas(input_canvas_id, 
+        input_node_data["output_size"]["width"],
+        input_node_data["output_size"]["height"],
+        input_node_data["outputs"][0],
+        null);
+
+      // Draw Output
+      var output_canvas_id = "output_" + temp_id;
+      canvas_div_output.append(`<div class="col-3"><h3>Output</h3><canvas id="`+ output_canvas_id +`"></canvas></div>`);
+      drawCanvas(output_canvas_id, 
+        json_data["output_size"]["width"],
+        json_data["output_size"]["height"],
+        json_data["outputs"][0],
+        null);
     }
   });
 

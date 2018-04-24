@@ -103,3 +103,38 @@ class VisGraph():
         self.prev_layers_node = prev_layers
         self.current_level += 1
             
+
+    def draw_pooling(self, output, size):
+        prev_layers = []
+        for i in range(output.shape[3]):
+            self.dotstring += str(self.node_counter) + '[label="",level=' + str(self.current_level) + '];'
+            self.dotstring += str(self.node_counter) + '--' + str(self.prev_layers_node[i]) + "[id=e" + str(self.edge_counter) + '];'
+
+            context = {}
+
+            context["type"] = "pooling"
+            context["output_size"] = {}
+            context["output_size"]["width"] = size[0]
+            context["output_size"]["height"] = size[1]
+
+            context["outputs"] = []
+            result = []
+            output_1d = np.reshape(output[0, :, :, i], (size[0] * size[1]))
+            for val in output_1d:
+                result.append(0)
+                result.append(0)
+                result.append(0)
+                result.append(float(val))
+            context["outputs"].append(result)
+
+            context["inputs"] = []
+            context["inputs"].append(self.prev_layers_node[i])
+
+            self.data[str(self.node_counter)] = context
+            
+            prev_layers.append(self.node_counter)
+            self.edge_counter += 1
+            self.node_counter += 1
+
+        self.prev_layers_node = prev_layers
+        self.current_level += 1
