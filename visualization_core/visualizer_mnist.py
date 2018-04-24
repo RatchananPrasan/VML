@@ -2,8 +2,8 @@ import tensorflow as tf
 import numpy as np
 import matplotlib.pyplot as plt
 
-from helper import get_mnist_filename
-from vis_graph import VisGraph
+from .helper import get_mnist_filename
+from .vis_graph import VisGraph
 
 class MnistVisualizer():
 
@@ -151,7 +151,6 @@ class MnistVisualizer():
                 self.graph_generator.draw_input(image_input_out_np, (28 , 28))
 
                 conv_1_out = sess.run(conv_1)
-                conv_1_out = conv_1_out[0, :, :, :]
                 self.graph_generator.draw_convolution(conv_1_out, (28, 28), 
                     self.conv_1_kernel, (5, 5), "Relu")
 
@@ -161,6 +160,9 @@ class MnistVisualizer():
                 conv_2_out = sess.run(conv_2)
                 self.graph_generator.draw_convolution(conv_2_out, (14, 14),
                     self.conv_2_kernel, (5,5), "Relu")
+
+                pool_2_out = sess.run(pool_2)
+                self.graph_generator.draw_pooling(pool_2_out, (7, 7))
 
                 self.graph_generator.end_dotstring()
 

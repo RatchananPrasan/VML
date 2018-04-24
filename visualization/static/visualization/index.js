@@ -10,7 +10,7 @@ $(document).ready(function() {
   var options = parsedData.options;
 
   var edge_on_opacity = 1;
-  var edge_off_opacity = 0.4;
+  var edge_off_opacity = 0.1;
 
   options.edges = {
     color : {
@@ -118,34 +118,39 @@ $(document).ready(function() {
 
         // Draw Input
         var input_canvas_id = "input_" + temp_id;
-        canvas_div_output.append(`<div class="col-3"><h3>Input</h3><canvas id="`+ input_canvas_id +`"></canvas></div>`);
+        canvas_div_output.append(`<div class="col-4"><h3>Input</h3><canvas id="`+ input_canvas_id +`"></canvas></div>`);
         var input_node_id = json_data["inputs"][i];
         var input_node_data = node_data[input_node_id];
 
         drawCanvas(input_canvas_id, 
           input_node_data["output_size"]["width"],
           input_node_data["output_size"]["height"],
-          input_node_data["outputs"][i],
+          input_node_data["outputs"][0],
           null);
 
         // Draw Filter
         var filter_canvas_id = "filter_" + temp_id;
-        canvas_div_output.append(`<div class="col-3"><h3>Filter</h3><canvas id="`+ filter_canvas_id +`"></canvas></div>`);
+        canvas_div_output.append(`<div class="col-4"><h3>Filter</h3><canvas id="`+ filter_canvas_id +`"></canvas></div>`);
         drawCanvas(filter_canvas_id, 
           json_data["filter_size"]["width"],
           json_data["filter_size"]["height"],
           json_data["filters"][i],
           "rgb(220,220,220)");
+        }
 
         // Draw Output
-        var output_canvas_id = "output_" + temp_id;
-        canvas_div_output.append(`<div class="col-3"><h3>Output</h3><canvas id="`+ output_canvas_id +`"></canvas></div>`);
+        var result_output_id = "result_output";
+        output_div.append(`<div class="row justify-content-center" id="`+ result_output_id +`"></div>`);
+        var canvas_div_output = $("#"+result_output_id);
+
+        var output_canvas_id = "output_" + result_output_id;
+        canvas_div_output.append(`<div class="col-8"><h3>Output</h3><canvas id="`+ output_canvas_id +`"></canvas></div>`);
         drawCanvas(output_canvas_id, 
           json_data["output_size"]["width"],
           json_data["output_size"]["height"],
-          json_data["outputs"][i],
+          json_data["outputs"][0],
           null);
-      }
+      
     } else if (json_data["type"] == "input") {
       var html_val = `
                       <p>

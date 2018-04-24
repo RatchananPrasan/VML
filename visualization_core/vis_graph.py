@@ -31,8 +31,8 @@ class VisGraph():
         context["output_size"] = {}
         context["output_size"]["width"] = size[0]
         context["output_size"]["height"] = size[1]
-        context["outputs"] = []
 
+        context["outputs"] = []
         output = []
         for i in image:
             output.append(0)
@@ -51,7 +51,7 @@ class VisGraph():
 
     def draw_convolution(self, outputs, size, kernel, kernel_size, activation):
         prev_layers = []
-        for i in range(outputs.shape[2]):
+        for i in range(outputs.shape[3]):
             self.dotstring += str(self.node_counter) + '[label="",level=' + str(self.current_level) + '];'
 
             for j in self.prev_layers_node:
@@ -84,7 +84,7 @@ class VisGraph():
             context["output_size"]["height"] = size[1]
 
             context["outputs"] = []
-            output_1d = np.reshape(outputs[:, :, i], (size[0] * size[1]))
+            output_1d = np.reshape(outputs[0, :, :, i], (size[0] * size[1]))
             result = []
             for val in output_1d:
                 result.append(0)
@@ -108,8 +108,8 @@ class VisGraph():
         prev_layers = []
         for i in range(output.shape[3]):
             self.dotstring += str(self.node_counter) + '[label="",level=' + str(self.current_level) + '];'
-            self.dotstring += str(self.node_counter) + '--' + str(self.prev_layers_node[i]) + "[id=e" + str(self.edge_counter) + '];'
-
+            self.dotstring += str(self.prev_layers_node[i]) + '--' + str(self.node_counter) + "[id=e" + str(self.edge_counter) + '];'
+    
             context = {}
 
             context["type"] = "pooling"
