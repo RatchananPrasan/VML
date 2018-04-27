@@ -2,7 +2,7 @@ $(document).ready(function() {
   
   /***** Global Variables *****/
   var edge_on_opacity = 1;
-  var edge_off_opacity = 0.1;
+  var edge_off_opacity = 0;
 
   /***** Generate Graph *****/
   var parsedData = vis.network.convertDot(dotstring);
@@ -91,6 +91,33 @@ $(document).ready(function() {
       x = 0;
       y += ratio_height;
     }
+  };
+
+  var getDrawingPositon = function(nodes, nodes_pos) {
+    var first_node = nodes[0];
+
+    var left_x = nodes_pos[first_node]["x"];
+    var right_x = nodes_pos[first_node]["x"];
+    var top_y = nodes_pos[first_node]["y"];
+    var bottom_y = nodes_pos[first_node]["y"];
+
+    for(var i = 1;i < nodes.length;i++) {
+      var current_node = nodes[i];
+      var pos_x = nodes_pos[current_node]["x"];
+      var pos_y = nodes_pos[current_node]["y"];
+
+      if (pos_x < left_x) left_x = pos_x;
+      if (pos_x > right_x) right_x = pos_x;
+      if (pos_y > top_y) top_y = pos_y;
+      if (pos_y < bottom_y) bottom_y = pos_y;
+    }
+
+    return {
+      "left_x" : left_x,
+      "right_x" : right_x,
+      "top_y" : top_y,
+      "bottom_y" : bottom_y
+    };
   };
 
   /***** Event Handler *****/
@@ -213,7 +240,17 @@ $(document).ready(function() {
     setEdgeOpacity(network, params.previousSelection.edges, edge_off_opacity);
   });
 
-  /***** Drawing Canvas *****/
+  network.on("afterDrawing", function(ctx) {
+    var tempo = graph_meta["convolution"][0];
+    var layer_position = getDrawingPositon(tempo, this.getPositions(tempo));
+    ctx.fillStyle = "black";
+    ctx.font = "30px Arial";
+    ctx.fillText("Convolution Layer", layer_position["left_x"] - 125, layer_position["bottom_y"] - 75);
+    ctx.fillStyle = "rgba(255, 175, 175, 0.4)";
+    ctx.fillRect(layer_position["left_x"] - 125, layer_position["bottom_y"] - 100, 250, layer_position["top_y"] - layer_position["bottom_y"] + 200);
+  });
+
+  /***** Drawing Input Canvas *****/
   function getCookie(name) {
     var cookieValue = null;
     if (document.cookie && document.cookie !== '') {

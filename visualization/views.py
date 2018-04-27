@@ -24,9 +24,10 @@ def mnist(request):
 
     information = controller.visualize_mnist()
 
-    context["data"] = information["data"]
+    context["data"] = json.dumps(information["data"])
     context["dotstring"] = information["dotstring"]
     context["meta"] = information["meta"]
+    context["graph_meta"] = json.dumps(information["graph_meta"])
 
     return render(request, 'visualization/mnist.html', context)
 

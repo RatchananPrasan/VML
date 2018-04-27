@@ -75,5 +75,6 @@
 <script type="text/javascript">
   var dotstring = `{{ dotstring | safe}}`;
   var node_data = {{ data | safe }};
+  var graph_meta = {{ graph_meta | safe }};
 </script>
 <script type="text/javascript" src="{% static 'visualization/index.js' %}"></script>{% endblock %}
