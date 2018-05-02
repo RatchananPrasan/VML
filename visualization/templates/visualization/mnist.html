@@ -86,8 +86,10 @@
 {% endblock %}
 
 {% block script %}
-<script type="text/javascript">
-  var dotstring = `{{ dotstring | safe}}`;
-  var node_data = {{ data | safe }};
-</script>
-<script type="text/javascript" src="{% static 'visualization/index.js' %}"></script>{% endblock %}
+  <script type="text/javascript">
+    var dotstring = `{{ dotstring | safe}}`;
+    var node_data = {{ data | safe }};
+  </script>
+  <script type="text/javascript" src="{% static 'visualization/index.js' %}"></script>
+  <script type="text/javascript" src="{% static 'visualization/sketchpad.js' %}"></script>
+{% endblock %}
