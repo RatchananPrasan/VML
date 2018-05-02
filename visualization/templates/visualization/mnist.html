@@ -18,25 +18,55 @@
   </div>
   <div class="row">
     <div class="col-md-5">
+      <div class="row">
         <div id="sketchpadapp">
           <div class="rightside">
               <canvas id="sketchpad" height="280" width="280">
               </canvas>
           </div>
           <button id="save"class="btn btn-primary">Predict</button>
-          <p></p>
           <button id="clear" class="btn btn-warning">Clear Canvas</button>
+        </div>
+      </div>
+      <p></p>
+      <p></p>
+      <p></p>
+        <div class="row">
+          <h3>Layers Information :</h3>
+          {% for meta in meta.layers %}
+            <div>
+            <b>{{meta}}</b>
+            </div>
+          {% endfor %}
         </div>
         <input id="myField" class="hidden" value="" />
         <input id="out" value="" class="hidden"/>
     </div>
     <div class="col-md-5 offset-md-2">
-      <h3>Layers Information :</h4>
-      {% for meta in meta.layers %}
-        <div>
-        <b>{{meta}}</b>
-        </div>
-      {% endfor %}
+      <h3>Expected output: {{meta.output}}</h3>
+        {% for key, value in meta.probabilities.items %}
+          <div class="row">
+            <div class="col-md-2">
+              Class: {{key}}
+            </div>
+            <div class="col-md-6">
+              <div class="progress">
+                <div class="progress-bar progress-bar-striped" role="progressbar" style="width: {{value}}%;">
+                  {{ value | floatformat:0 }}%
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <p>{{ value | floatformat:2 }} %</p>
+            </div>
+          </div>
+        {% endfor %}
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      
+
     </div>
   </div>
 </section>
@@ -44,25 +74,9 @@
   <div class="col-12" id="network">
   </div>
 </div>
-<h3>Expected output: {{meta.output}}</h3>
+
 <p id="selection"></p>
-  {% for key, value in meta.probabilities.items %}
-      <div class="row">
-        <div class="col-md-2">
-          Class: {{key}}
-        </div>
-        <div class="col-md-4">
-          <div class="progress">
-            <div class="progress-bar progress-bar-striped" role="progressbar" style="width: {{value}}%;">
-              {{ value | floatformat:0 }}%
-            </div>
-          </div>
-        </div>
-        <div class="col-md-4">
-          <p>{{ value | floatformat:2 }} %</p>
-        </div>
-      </div>
-  {% endfor %}
+  
 
 <div class="row justify-content-center">
   <div class="col-12" id="output">
