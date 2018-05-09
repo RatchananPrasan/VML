@@ -24,9 +24,27 @@ def mnist(request):
 
     information = controller.visualize_mnist()
 
+
     context["data"] = information["data"]
     context["dotstring"] = information["dotstring"]
     context["meta"] = information["meta"]
+
+    return render(request, 'visualization/mnist.html', context)
+def save_alpha(request):
+    context = {}
+
+    controller = VisualizationController()
+
+    information = controller.visualize_mnist()
+
+
+    context["data"] = information["data"]
+    context["dotstring"] = information["dotstring"]
+    context["meta"] = information["meta"]
+    if request.method == "POST" and request.is_ajax():
+        dsf = request.POST.getlist('alpha_val[]')
+        print(dsf)
+
 
     return render(request, 'visualization/mnist.html', context)
 

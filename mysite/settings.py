@@ -26,7 +26,7 @@ SECRET_KEY = 'tw3p^e#s(=$&qgec1g_gy^-u-mioa+y7@&+s6qy$%6sqr)dlzg'
 DEBUG = True
 
 ALLOWED_HOSTS = []
-
+DATA_UPLOAD_MAX_NUMBER_FIELDS = 1024000
 
 # Application definition
 

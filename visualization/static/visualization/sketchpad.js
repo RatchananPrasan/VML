@@ -47,19 +47,32 @@ function getCookie(name) {
     var save = function(){
 
 
-          dataURL = canvas.toDataURL("image/png");
+          // dataURL = canvas.toDataURL("image/png");
 
-          document.getElementById("out").value = dataURL;
-          $.ajax({
+          // document.getElementById("out").value = dataURL;
+          // $.ajax({
+          //   type: 'POST',
+          //   url: 'savepic',
+          //   data: { 
+          //      imgBase64: dataURL
+          //   },
+
+          // });
+        var imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+        var data = imageData.data;
+        var draw_alpha_data=[];
+        for (var i = 3; i < data.length; i+=4) {
+            draw_alpha_data.push(data[i]);
+        }
+        document.getElementById('myField').value = draw_alpha_data;
+        $.ajax({
             type: 'POST',
-            url: 'savepic',
+            url: 'savealpha',
             data: { 
-               imgBase64: dataURL
+               alpha_val: draw_alpha_data
             },
 
-          });
-          
-
+        });
         };
     $('#save').on("click",save);
 
