@@ -52,7 +52,8 @@ $(document).ready(function() {
     }
   };
 
-  var drawCanvas = function(canvas_id, canvas_width, canvas_height, width, height, rgba_vals, stroke_color) {
+  var drawCanvas = function(canvas_id, canvas_width, canvas_height, width, height, 
+                              rgba_vals, stroke_color) {
     // stroke_color can be rgba(r,g,b,a) or null
 
     var c = document.getElementById(canvas_id);
