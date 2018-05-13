@@ -25,8 +25,6 @@ class MnistVisualizer():
             ]
         }
 
-        #self.input_tensor = self._read_image()
-
         self._read_variables()
 
         self._gen_graph()
@@ -42,28 +40,6 @@ class MnistVisualizer():
 
     def get_dotstring(self):
         return self.graph_generator.get_dotstring()
-
-
-    def _read_image(self):
-        # Not usable yet
-
-        with open(self.input_file, "rb") as file_obj:
-
-            image_raw = file_obj.read()
-
-        with tf.Graph().as_default():
-
-            image_op = tf.image.decode_jpeg(image_raw, channels=4)
-            resize_op = tf.image.resize_images(image_op, [28, 28], 
-                method=tf.image.ResizeMethod.AREA)
-
-            with tf.Session() as sess:
-
-                image = sess.run(resize_op)
-                print(image[:, :, 3])
-                image_resized = sess.run(tf.reshape(image[:, :, 0], shape=[784]))
-
-        return image_resized
 
 
     def _read_variables(self):

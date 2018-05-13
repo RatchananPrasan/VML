@@ -3,7 +3,6 @@ from .vis_graph import VisGraph
 
 class VisualizationController():
 
-
     def visualize_mnist(self):
         mnist = MnistVisualizer("", VisGraph())
 
