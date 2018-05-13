@@ -9,6 +9,15 @@ class VisGraph():
         self.edge_counter = 0
         self.current_level = 1
         self.prev_layers_node = []
+        self.graph_meta = {
+            "convolution" : [],
+            "pooling" : [],
+            "input" : []
+        }
+
+
+    def get_graph_meta(self):
+        return self.graph_meta
 
 
     def get_data(self):
@@ -42,6 +51,7 @@ class VisGraph():
         context["outputs"].append(output)
 
         self.data[str(self.node_counter)] = context
+        self.graph_meta["input"].append([self.node_counter])
 
         self.prev_layers_node.append(self.node_counter)
 
@@ -51,6 +61,7 @@ class VisGraph():
 
     def draw_convolution(self, outputs, size, kernel, kernel_size, activation):
         prev_layers = []
+        all_node = []
         for i in range(outputs.shape[3]):
             self.dotstring += str(self.node_counter) + '[label="",level=' + str(self.current_level) + '];'
 
@@ -96,16 +107,19 @@ class VisGraph():
             context["inputs"] = self.prev_layers_node
 
             self.data[str(self.node_counter)] = context
+            all_node.append(self.node_counter)
             
             prev_layers.append(self.node_counter)
             self.node_counter += 1
 
+        self.graph_meta["convolution"].append(all_node)
         self.prev_layers_node = prev_layers
         self.current_level += 1
             
 
     def draw_pooling(self, output, size):
         prev_layers = []
+        all_node = []
         for i in range(output.shape[3]):
             self.dotstring += str(self.node_counter) + '[label="",level=' + str(self.current_level) + '];'
             self.dotstring += str(self.prev_layers_node[i]) + '--' + str(self.node_counter) + "[id=e" + str(self.edge_counter) + '];'
@@ -131,10 +145,12 @@ class VisGraph():
             context["inputs"].append(self.prev_layers_node[i])
 
             self.data[str(self.node_counter)] = context
+            all_node.append(self.node_counter)
             
             prev_layers.append(self.node_counter)
             self.edge_counter += 1
             self.node_counter += 1
 
+        self.graph_meta["pooling"].append(all_node)
         self.prev_layers_node = prev_layers
         self.current_level += 1

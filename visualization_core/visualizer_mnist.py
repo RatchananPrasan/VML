@@ -34,6 +34,10 @@ class MnistVisualizer():
         return self.meta
 
 
+    def get_graph_meta(self):
+        return self.graph_generator.get_graph_meta()
+
+
     def get_data(self):
         return self.graph_generator.get_data()
 

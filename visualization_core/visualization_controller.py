@@ -11,6 +11,7 @@ class VisualizationController():
         result["data"] = mnist.get_data()
         result["dotstring"] = mnist.get_dotstring()
         result["meta"] = mnist.get_meta()
+        result["graph_meta"] = mnist.get_graph_meta()
 
         return result
 
