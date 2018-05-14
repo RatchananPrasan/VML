@@ -31,8 +31,8 @@ class ModelReader():
                         name = i.name.split("/")[0]
 
                         if (i.type == ops.CONV2D):
-                            padding = i.get_attr("padding")
-                            strides = i.get_attr("strides")
+                            padding = i.get_attr("padding").decode("utf-8")
+                            strides = i.get_attr("strides")[1:3]
                             conv_2d = ops.Convolutional2D_OP(padding, strides)
                             for j in graph.get_collection("trainable_variables"):
                                 compared_name = j.name.split("/")[0]
@@ -46,16 +46,16 @@ class ModelReader():
                             self.operations.append(conv_2d)
                             
                         elif (i.type == ops.MAXPOOL2D):
-                            padding = i.get_attr("padding")
-                            strides = i.get_attr("strides")
-                            pool_size = i.get_attr("ksize")
+                            padding = i.get_attr("padding").decode("utf-8")
+                            strides = i.get_attr("strides")[1:3]
+                            pool_size = i.get_attr("ksize")[1:3]
                             pool_2d = ops.MaxPooling2D_OP(pool_size, padding, strides)
                             self.operations.append(pool_2d)
 
                         elif(i.type == ops.AVGPOOL2D):
-                            padding = i.get_attr("padding")
-                            strides = i.get_attr("strides")
-                            pool_size = i.get_attr("ksize")
+                            padding = i.get_attr("padding").decode("utf-8")
+                            strides = i.get_attr("strides")[1:3]
+                            pool_size = i.get_attr("ksize")[1:3]
                             pool_2d = ops.AvgPooling2D_OP(pool_size, padding, strides)
                             self.operations.append(pool_2d)
 
@@ -78,10 +78,3 @@ class ModelReader():
                     elif (i.type in ops.Activation_ops):
                         if (i.type == ops.RELU):
                             self.operations[-1].set_activation(tf.nn.relu)
-
-
-if __name__ == "__main__":
-
-    modelreader = ModelReader(hp.get_mnist_filename())
-    for i in modelreader.get_operations():
-        print(i.to_string())
